@@ -44,6 +44,7 @@
           </div>  
         </div>
     </div>
+    <FooterFile/>
 </div>
 
     <!-- <div>
@@ -61,7 +62,7 @@
       <button type="button" @click="sendEmail">Send Email</button>
     </form>
   </div> -->
-  <FooterFile/>
+ 
 </template>
 
 <script src="https://smtpjs.com/v3/smtp.js"></script>
@@ -83,16 +84,12 @@ export default{
             // toEmail: '',
             // subject: '',
             // body: ''
-            
-        },
-        
-    },
-    components:
-    {
-      FooterFile,
-      HeaderFile1
-      
-    },
+        }
+      },
+      components: {
+        HeaderFile1,
+        FooterFile
+      },
     methods:
     {
         // confirmPurchase()
