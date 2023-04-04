@@ -183,13 +183,6 @@ const router = new VueRouter({  mode:'history', routes, linkExactActiveClass:'ac
 Vue.config.productionTip = false
 
 
-// new Vue({
-//   mode:'history',
-//   router:router,
-//   render: h => h(App),
-// }).$mount('#app')
-// export default router
-
 let app = '';
 const config = {
   apiKey: "AIzaSyDs8ityI7p5MscSDADyRZBtvTa2JFTCE7g",

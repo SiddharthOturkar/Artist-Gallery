@@ -36,7 +36,7 @@
                           </li> -->
                           <li class="nav-item">
                              
-                              <a class="nav-link"><router-link to="/BuyPainting" class="dec">Shop</router-link></a>
+                              <a class="nav-link"><router-link to="/ProductsPage" class="dec">Shop</router-link></a>
                           </li>
                           
                           <!-- <li class="nav-item">
@@ -48,14 +48,6 @@
                               
                               <a class="nav-link"><router-link to="/ArtHistory" class="dec">History of Art</router-link></a>
                           </li>
-  
-                          <!-- <li class="nav-item">
-                            <a class="nav-link" ><router-link to="/LoginPage" class="dec" >LogOut</router-link></a>
-                          </li> -->
-  
-                          <!-- <li class="nav-item"  >
-                            <a class="nav-link"><router-link to="/Dashboard" class="dec">Dashboard</router-link></a>
-                          </li> -->
                           
                           <li class="nav-item"  >
                             <a class="nav-link"><router-link to="/AboutUs" class="dec">About</router-link></a>
@@ -73,7 +65,7 @@
                                     data-toggle="dropdown"
                                     aria-haspopup="true"
                                     aria-expanded="false"
-                                    >{{ cartItemCount }} cart</button>
+                                    >{{ totalCartItems}} cart</button>
   
                                       <miniCArt></miniCArt>   
                                 </div>
@@ -106,12 +98,7 @@
   
   <script>
   import miniCArt from '@/components/miniCArt';
-  // import { bus } from './main.js'
-  // import firebase from 'firebase/compat/app';
-  //   import 'firebase/compat/auth';
-  //   import 'firebase/compat/firestore';
-  // import {mapGetters} from 'vuex';
-  // import TrialPage from './components/TrialPage.vue'
+  import axios from 'axios';
   export const IS_USER_AUTHENTICATE_GETTER = '[getters] is user authenticated'; 
   export default {
     
@@ -122,12 +109,10 @@
     data()
     {
       return{
-      // loginbtn: true,
-      // logoutbtn: false,
-      imageUrls: [],
-      // isLoggedIn:true,
-      // logout1:false,
     
+      imageUrls: [],
+      totalCartItems:0,
+   
       }
     },
     name: 'App',
@@ -145,6 +130,14 @@
         {
           return this.$store.getters.cartItemCount;
         }
+      },
+      created()
+      {
+        axios.get(`https://retoolapi.dev/BYWiwS/cart`)
+            .then(response=>{
+              this.totalCartItems=response.data.length-1;
+              return this.totalCartItems;
+            })
       }
     
   }

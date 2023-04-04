@@ -16,27 +16,10 @@
                               
                             <a class="nav-link"><router-link class="active" aria-current="page" to="/">Home</router-link></a>
                           </li>
-                          <!-- <li class="nav-item dropdown">
-                              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                  aria-expanded="false">
-                                  Paintings
-                              </a>
-                              <ul class="dropdown-menu">
-                                  <li><router-link to="/AbstractPainting" class="dropdown-item">Abstract Painting</router-link></li>
-                                 
-                                  <li><router-link to="/CityscapePaint" class="dropdown-item">Cityscape Painting</router-link></li>
-                                  <li><router-link to="/FigurativePainting" class="dropdown-item">Figurative Painting</router-link></li>
-                                  
-                                  <li><router-link to="/BirdsPainting" class="dropdown-item">Bird Art</router-link></li>
-                                  <li><router-link to="/MonochromePainting" class="dropdown-item">Monochrome Painting</router-link></li>
-                                  <li><router-link to="/WarliPainting" class="dropdown-item">Warli Painting</router-link></li>
-                                  <li><router-link to="/Abc" class="dropdown-item">Trial Page</router-link></li>
-                              
-                              </ul>
-                          </li> -->
+                      
                           <li class="nav-item">
                              
-                              <a class="nav-link"><router-link to="/BuyPainting" class="dec">Shop</router-link></a>
+                              <a class="nav-link"><router-link to="/ProductsPage" class="dec">Shop</router-link></a>
                           </li>
                           
                           <!-- <li class="nav-item">
@@ -73,7 +56,7 @@
                                     data-toggle="dropdown"
                                     aria-haspopup="true"
                                     aria-expanded="false"
-                                    >{{ cartItemCount }} cart</button>
+                                    >{{ totalCartItems }} cart</button>
   
                                       <miniCArt></miniCArt>   
                                 </div>
@@ -106,12 +89,7 @@
   
   <script>
   import miniCArt from '@/components/miniCArt';
-  // import { bus } from './main.js'
-  // import firebase from 'firebase/compat/app';
-  //   import 'firebase/compat/auth';
-  //   import 'firebase/compat/firestore';
-  // import {mapGetters} from 'vuex';
-  // import TrialPage from './components/TrialPage.vue'
+  import axios from 'axios';
   export const IS_USER_AUTHENTICATE_GETTER = '[getters] is user authenticated'; 
   export default {
     
@@ -122,11 +100,8 @@
     data()
     {
       return{
-      // loginbtn: true,
-      // logoutbtn: false,
       imageUrls: [],
-      // isLoggedIn:true,
-      // logout1:false,
+      totalCartItems:0,
     
       }
     },
@@ -145,6 +120,14 @@
         {
           return this.$store.getters.cartItemCount;
         }
+      },
+      created()
+      {
+        axios.get(`https://retoolapi.dev/BYWiwS/cart`)
+            .then(response=>{
+              this.totalCartItems=response.data.length-1;
+              return this.totalCartItems;
+            })
       }
     
   }

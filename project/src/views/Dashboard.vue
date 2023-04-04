@@ -1,5 +1,9 @@
 <template>
     <div>
+      <HeaderFile1/>
+      
+      <!-- <img src="@/assets/upload_art.jpg" style="height: 500px; width: 100%; " alt=""> -->
+      
       <h1 class="upcoming_heading">Upload Details</h1>
         <!-- <h2>Dashboard</h2>
         <p>This page is only visible to users that are currently logged in</p> -->
@@ -9,64 +13,14 @@
             <button @click="logout" class="btn btn-danger">Logout</button>
         </div>
         <h1 class="upcoming_heading name1">Hi Artist <b>{{name.toUpperCase()}}</b></h1>
-        <!-- <h1>{{ url }}</h1> -->
-        <!-- Add the Price and Institue -->
-        <!-- <h3>Add Your Art</h3> -->
-        <!-- <form @submit.prevent="onAdddetails">
-          <div class="my-2">
-            <label>Price of Art</label>
-            <input type="text" class="form-control" v-model="post.price">
-          </div>
-          
-          <div class="my-2">
-            <label>Institute Name</label>
-            <input type="text" class="form-control" v-model="post.instname">
-          </div> -->
-
-          <!-- <div class="my-2">
-            <label>Institute Name</label>
-            <input type="file" @change="getFile" id="file" class="file1" >
-          </div> -->
-         
-
-          <!-- <div class="my-2">
-            <button class="btn btn-primary">Add Details</button>
-          </div>
-          
-        </form> -->
-
-
-        <!-- <label>Name:</label>
-        <input type="text" v-model="InstituteName"> -->
-
-        
-
-        <!-- <div class="uploaddiv">
-  <div class="container">
-    <form @submit.prevent="uploadData">
-    <input type="file" id="file" @change="getFile" accept="image/*" hidden >
-    <div class="img-area" :data-img="imagePreviewUrl" :class="{ active: imagePreviewUrl }">
-      <i class='bx bxs-cloud-upload icon'></i>
-      <h3>Upload Image</h3>
-      <p>Image size must be less than <span>2MB</span></p>
-      <img v-if="imagePreviewUrl" :src="imagePreviewUrl" alt="Selected image">
-    </div>
-    <button class="btn btn-warning select-image" >Select Image</button>
-    </form>
-  </div>  
-</div> -->
-        
-        <!-- <div class="showimg">
-          <button @click="geturl" class="btn btn-warning">Show Image</button>
-          <h2>{{ price }}</h2>
-          <img src='' id="myimg" alt="abc" v-if="showimg">
-        </div>
-
-        <button @click="fetchData" class="btn btn-danger" >Fetch Images From Firebase</button> -->
+     
       </div>
       
       <div class="uploaddiv">
           <div class="container">
+            <!-- <div class="side_image">
+              <img src="@/assets/upload.jpg" alt="">
+            </div> -->
             <div class="imginput">
                 <form @submit.prevent="uploadData" >
                   <input type="file" @change="onFileChange"  id="file" class="file1" hidden>
@@ -133,48 +87,21 @@
 </template>
 
 <script>
-// import InstituteImages from '@/components/InstituteImages' 
-// import { bus } from '../main.js'
+import HeaderFile1 from '@/components/HeaderFile1.vue';
+import FooterFile from '@/components/FooterFile';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import 'firebase/storage'; 
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
-import FooterFile from '@/components/FooterFile';
+
 import axios from 'axios'
-// import { response } from 'express';
-// const selectImage = document.querySelector('.select-image');
-// const inputFile = document.querySelector('#file');
-// const imgArea = document.querySelector('.img-area');
 
-// selectImage.addEventListener('click', function () {
-// 	inputFile.click();
-// })
-
-// inputFile.addEventListener('change', function () {
-// 	const image = this.files[0]
-// 	if(image.size < 2000000) {
-// 		const reader = new FileReader();
-// 		reader.onload = ()=> {
-// 			const allImg = imgArea.querySelectorAll('img');
-// 			allImg.forEach(item=> item.remove());
-// 			const imgUrl = reader.result;
-// 			const img = document.createElement('img');
-// 			img.src = imgUrl;
-// 			imgArea.appendChild(img);
-// 			imgArea.classList.add('active');
-// 			imgArea.dataset.img = image.name;
-// 		}
-// 		reader.readAsDataURL(image);
-// 	} else {
-// 		alert("Image size more than 2MB");
-// 	}
-// })
 export default {
   name: 'DashboardPage',
   components:
   {
-    // InstituteImages
+    HeaderFile1,
     FooterFile
   },
   data() {
@@ -464,6 +391,7 @@ export default {
 .home
 {
   margin-left: 90%;
+  margin-top: -50px;
 }
 .home button
 {
@@ -555,26 +483,14 @@ export default {
   /* background-image: url('https://cdn11.bigcommerce.com/s-x49po/images/stencil/1280x1280/products/89262/155364/1668761300278_AAG_000087_A__1___42835.1669109980.jpg?c=2'); */
   
 }
-/* .FooterFile
-{
-  margin-top: 20px;
-} */
 
-/* Upload Image Div Starts from Here */
-/* .uploaddiv {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background: #B6DBF6;
-  border: 2px solid black;
-} */
 
 .upcoming_heading
 {
   font-size: xx-large;
   /* top: -25%; */
   font-family: 'Kanit', sans-serif;
+  margin-top: 40px;
 }
 
 .name1 b
@@ -587,7 +503,9 @@ export default {
 }
 .container {
   /* max-width: 400px; */
-  width: 60%;
+  /* width: 60%; */
+  /* display: flex;
+  flex-direction: row; */
   background: #fcf6bd;
   padding: 30px;
   border-radius: 30px;

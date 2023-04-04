@@ -27,8 +27,9 @@ export const getProduct = ({commit},ProductId) => {
 export const addProductToCart = ({commit},{product,quantity})=>{
     
     commit('ADD_TO_CART',{product,quantity});
-  
-    axios.post(`https://retoolapi.dev/6ysODg/cart`,{
+    
+    // https://retoolapi.dev/6ysODg/cart
+    axios.post(`https://retoolapi.dev/BYWiwS/cart`,{
         id: product.id,
         price: product.price,
         product: product.name,
@@ -57,5 +58,6 @@ export const removeProductFromCart = ({commit},product)=>{
 
 export const clearCartItems = ({commit})=>{
     commit('CLEAR_CART_ITEMS');
-    // axios.delete(`https://retoolapi.dev/6ysODg/cart`)
+    // axios.delete(`https://retoolapi.dev/gdK6q2/data/9`)
+    
 }

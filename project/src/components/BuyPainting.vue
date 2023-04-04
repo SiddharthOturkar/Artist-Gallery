@@ -216,7 +216,7 @@
 <div class="whole_card">
   
   <div class="main_for" >
-    <div class="flex_div" v-for="item in displayCartItems" :key="item.id">
+    <div class="flex_div" v-for="item in displayCartItems.slice(1)" :key="item.id">
       <div class="product_img">
         <img src="@/assets/art10.jpg" alt="">
       </div>
@@ -239,7 +239,7 @@
         <h3>Total:</h3>
       </div>
       <div class="final_total">
-        <h3>{{cartTotalPrice}}</h3>
+        <h3>{{ total }}</h3>
       </div>
     </div>
 
@@ -289,7 +289,8 @@ export default
     data() {
       return {
         value: '',
-        displayCartItems:[]
+        displayCartItems:[],
+        total : 0,
         // array1:JSON.parse(localStorage.getItem("array"))
       };
     },
@@ -337,13 +338,21 @@ export default
       this.$store.dispatch('getProduct', this.id)
   
       // console.log(this.cart1);
-      axios.get(`https://retoolapi.dev/6ysODg/cart`)
+      axios.get(`https://retoolapi.dev/BYWiwS/cart`)
           .then(response=>{
               
+              // let total = 0;
+
               this.displayCartItems=response.data;
               console.log(this.displayCartItems);
               console.log('------------');
-              return response.data;
+              this.displayCartItems.forEach(item =>{
+                  this.total += Number(item.price);
+              })
+              console.log(this.total);
+              return this.total;
+              // return response.data;
+
 
           })
     },

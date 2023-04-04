@@ -1,6 +1,6 @@
 <template>
     <div class="dropdown-menu p-2" style="min-width:320px; right: 0; left: 0; " aria-labelledby="triggerId">
-        <div v-for="item in postsdata" :key="item.id">
+        <div v-for="item in postsdata.slice(1)" :key="item.id">
             <div class="px-2 d-flex justify-content-between">
                 <div>
                 <strong>{{item.product}}</strong>
@@ -17,7 +17,7 @@
 
         <hr>
         <div class="d-flex justify-content-between">
-            <span>Total:₹{{ cartTotalPrice }}</span>
+            <span>Total:₹{{ total }}</span>
             <a href="#" @click.prevent="clearCartItems()">Clear Cart</a>
         </div>
     </div>
@@ -33,7 +33,9 @@ export default {
     {
         return{
             // cart1:JSON.parse(localStorage.getItem("array"))
-            postsdata : []
+            postsdata : [],
+            displayCartItems:[],
+            total:0,
         }
     },
     computed:{
@@ -56,7 +58,7 @@ export default {
         removeProductFromCart(product)
         {
             // this.$store.dispatch('removeProductFromCart',product)
-            axios.delete(`https://retoolapi.dev/6ysODg/cart/${product}`)
+            axios.delete(`https://retoolapi.dev/BYWiwS/cart/${product}`)
             return;
             // state.cart = state.cart.filter(item=>{
             // return item.product.id !== product.id;
@@ -70,16 +72,22 @@ export default {
     created()
     {
         // console.log(this.cart1);
-        axios.get(`https://retoolapi.dev/6ysODg/cart`)
+        axios.get(`https://retoolapi.dev/BYWiwS/cart`)
             .then(response=>{
-                
+
+                this.displayCartItems=response.data;
                 this.postsdata=response.data;
-                console.log(this.postsdata);
-                return response.data;
+                // console.log(this.postsdata);
+                // return response.data;
+                this.displayCartItems.forEach(item =>{
+                  this.total += Number(item.price);
+              })
+              console.log(this.total);
+              return this.total;
 
             })
 
-            
+   
         
     }
 }
