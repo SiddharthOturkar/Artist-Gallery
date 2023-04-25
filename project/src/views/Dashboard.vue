@@ -2,86 +2,58 @@
     <div>
       <HeaderFile1/>
       
-      <!-- <img src="@/assets/upload_art.jpg" style="height: 500px; width: 100%; " alt=""> -->
-      
       <h1 class="upcoming_heading">Upload Details</h1>
-        <!-- <h2>Dashboard</h2>
-        <p>This page is only visible to users that are currently logged in</p> -->
-       <div class="slideimg">
-        <div class="home">
-            <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-            <button @click="logout" class="btn btn-danger">Logout</button>
+        <div class="slideimg">
+          <div class="home">
+              <button @click="logout" class="btn logoutbtn">Logout</button>
+          </div>
+          <h1 class="upcoming_heading name1">Hi Artist <b>{{name.toUpperCase()}}</b></h1>
+          <div class="hrl">
+            <hr class="hrline">
+          </div>
         </div>
-        <h1 class="upcoming_heading name1">Hi Artist <b>{{name.toUpperCase()}}</b></h1>
-     
-      </div>
       
-      <div class="uploaddiv">
-          <div class="container">
-            <!-- <div class="side_image">
-              <img src="@/assets/upload.jpg" alt="">
-            </div> -->
-            <div class="imginput">
-                <form @submit.prevent="uploadData" >
-                  <input type="file" @change="onFileChange"  id="file" class="file1" hidden>
-                  <!-- <label>Name:</label> -->
-                  <!-- <input type="text" v-model="name"> -->
-                  <!-- <input type="number" v-model="price" placeholder="Enter Price">  -->
-                  <div class="getimg">
-                    <img src="@/assets/UploadImg.png" alt="">
-                    <!-- <button type="submit" class="btn btn-warning select-image">Upload Image</button> -->
-                  </div>
-                  <div class="getInputs">
-                    <label>Artist Name</label>
-                    <input type="text" v-model="name" placeholder="Artist Name">
-                    <br>
-                    <label>Price</label>
-                    <input type="text" v-model="price" placeholder="Enter Price">
-                    <br>
-                    <label>Institute</label>
-                    <input type="text" v-model="instname" placeholder="Your Institute">
-                    <br>
-                    <label>Size of Art</label>
-                    <input type="text" v-model="size" placeholder="eg.32 x 60 inches">
-                    <br>
-                    <label>Shape of Art</label>
-                    <input type="text" v-model="shape" placeholder="eg.Rectangle">
-                    <br>
-                    <button type="submit" class="btn btn-warning select-image">Upload Image</button>
-                  </div>
-                  <div class="submitbtn">
-                    <button type="submit" class="btn btn-warning" @click="detailsUpload">Submit</button>
-                  </div>
-                </form>
-            </div>
-          </div>  
+      <div class="main_div">
+        <div class="drawing_img">
+          <img src="@/assets/drawing_stand.png" alt="">
         </div>
-        
-          <!-- <li v-for="item in items" :key="item.name">
-              <img v-bind:src="item.name" class="listimg" alt="No Image" target="_blank">
-              <h3>{{ item.bucket }}</h3>
-          </li> -->
-          
-          <!-- <div v-for="imageUrl in imageUrls" :key="imageUrl"  >
-            <img :src="imageUrl" v-if="dataFetched" />
-          </div> -->
-          <!-- <div v-if="dataFetched" class="cardalign">
-          <div v-for="imageUrl in imageUrls" :key="imageUrl" class="card cardstyle" style="width:200px; height:220px">
-            <img :src="imageUrl" class="card-img-top" style="width:auto; height:140px" />
-                <div class="card-body"> -->
-                    <!-- <h4 class="card-title">Monochrome Painting</h4> -->
-                    <!-- <h4 class="card-title">{{this.img_details[0]}}</h4> -->
-                    <!-- <router-link to="/MonochromePainting" class="btn btn-primary bg-danger">Take a Look</router-link>
-                </div>
-            </div>
-          </div>   -->
 
-          <!-- <button @click="loadImage">Load Image</button>
-          <InstituteImages :imageSrc="imageSrc" v-if="loaded"/> -->
-          <!-- <button @click="fetchData">Fetch data</button>
-          <div v-for="imageUrl in imageUrls" :key="imageUrl"  >
-            <img :src="imageUrl" v-if="dataFetched" />
-          </div> -->
+        <div class="uploaddiv">
+            <div class="container">
+              <div class="imginput">
+                  <form @submit.prevent="uploadData" >
+                    <input type="file" @change="onFileChange"  id="file" class="file1" hidden>
+                    <!-- <div class="getimg">
+                      <img src="@/assets/UploadImg.png" alt="">
+                    </div> -->
+                    <div class="getInputs">
+                      <label>Artist Name</label><br>
+                      <input type="text" v-model="name" placeholder="Artist Name">
+                      <br>
+                      <label>Price</label><br>
+                      <input type="text" v-model="price" placeholder="Enter Price">
+                      <br>
+                      <label>Institute</label><br>
+                      <input type="text" v-model="instname" placeholder="Your Institute">
+                      <br>
+                      <label>Size of Art</label><br>
+                      <input type="text" v-model="size" placeholder="eg.32 x 60 inches">
+                      <br>
+                      <label>Shape of Art</label><br>
+                      <input type="text" v-model="shape" placeholder="eg.Rectangle">
+                      <br>
+                      <div class="subbtn">
+                        <button type="submit" class="btn  select-image">Upload Image</button>
+                      </div>
+                    </div>
+                    <div class="submitbtn">
+                      <button type="submit" class="btn  submitbtn1" @click="detailsUpload">Submit</button>
+                    </div>
+                  </form>
+              </div>
+            </div>  
+          </div>
+        </div>
           <FooterFile/>
     </div>
 </template>
@@ -108,7 +80,6 @@ export default {
     return {
       file: null,
       text: '',
-      // price:null,
       showimg:false,
       items: [],
       imageUrls: [],
@@ -118,9 +89,6 @@ export default {
       img_details : [],
       sortedFiles: [],
       num:0,
-      // name: '',
-      // InstituteName:'',
-      // url:'',
       name:'',
       price:'',
       instname:'',
@@ -183,7 +151,6 @@ export default {
             {
               console.log(response);
             })
-            // Do something with the URL, e.g. save it to your database
           });
         }
       );
@@ -259,7 +226,7 @@ export default {
     });
   },
 
-   //showimage button get Multiple Image URL and storing in array (Not Executed Well from me)
+   //showimage button get Multiple Image URL and storing in array 
   getimgname()
   {
       const storage = firebase.storage();
@@ -287,20 +254,13 @@ export default {
             num = num+1
                   // console.log(url);
                   this.items.push(url)
-              // const xhr = new XMLHttpRequest();
-              // xhr.open('GET', url);
-              // xhr.send();
-              // const img = document.getElementById('myimg'+num);
               console.log(url);
-              // console.log(img.value); 
-              // img.setAttribute('src', url);
             })
             .catch(() => 
             {
               // Handle any errors
             });
           // Do something with the image name
-          // console.log('Image name:', imageName);
           console.log(this.items);
         });
       })
@@ -351,7 +311,6 @@ export default {
 
     const selectImage = document.querySelector('.select-image');
     const inputFile = document.querySelector('#file');
-    // const imgArea = document.querySelector('.img-area');
 
     selectImage.addEventListener('click', function () {
       inputFile.click();
@@ -380,152 +339,138 @@ export default {
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Chakra+Petch:wght@500&family=Copse&family=Josefin+Sans&family=Kanit:wght@200;400;600&family=Poppins:wght@300&family=Ubuntu&display=swap');
-/* .cardalign
-{
-  display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    margin-top: 30px;
-    grid-gap: 80px;
-} */
 
+.main_div
+{
+  display: flex;
+  flex-direction: row;
+  /* border: 2px solid red; */
+}
+.drawing_img
+{
+  height: auto;
+  width: auto;
+  /* border: 2px solid red; */
+}
+.drawing_img img
+{
+  height: auto;
+  width: auto;
+  padding-left: 5%;
+  
+}
+.upcoming_heading
+{
+  color: #395f72;
+  font-weight: bold;
+}
+
+.imginput
+{
+  padding-left: 30%;
+  padding-top: 5%;
+  padding-bottom: 10%;
+}
 .home
 {
   margin-left: 90%;
   margin-top: -50px;
 }
-.home button
-{
-  font-size: 15px;
-}
 
-.imginput
-{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-.submitbtn button
-{
-  margin-top: 20px;
-  height:30%;
-  width: 30%;
-  object-fit: contain;
-  
-}
-
-.submitbtn button:hover
-{
-  background-color: #ddc959;
-}
-
-.getimg img
-{
-  height:30%;
-  width: 30%;
-  object-fit: contain;
-  /* margin-top: -60px; */
-}
-.getimg button
-{
-  /* object-fit: cover;  */
-  /* padding: 20px; */
-  /* margin: 20px; */
-  margin-top: 20px;
-}
-/* .imginput form input
-{
-  margin: 10px;
-  font-size: small;
-} */
-/* .imginput form .file1
-{
-  margin-left: 100px;
-} */
 
 .getInputs label
 {
   font-size: 20px;
   margin: 10px;
+  /* border: 2px solid red; */
+  width: 100%;
+  text-align: start;
+  color: #395f72;
 
 }
 .getInputs input
 {
-  color: black;
-  background-color: #fcf6bd;
-  border-radius: 5px;
-  text-decoration:overline;
+  color: #395f72;
+  background-color: rgb(251, 248, 240);
   height: 40px;
   width: 400px;
+  font-size: 20px;
+  border-radius: 10px;
+  border:2px solid #395f72;
+
+}
+
+::placeholder
+{
   font-size: 13px;
-  
-
+  padding-left: 10px;
 }
-.getInputs input:hover 
+
+.name1
 {
- transform: scale(1.1);
- border-color: brown;
+  margin-top: 20px;
 }
-
-.getInputs button
-{
-  margin-top: 5%;
-}
-.showimg button
-{
-  font-size: 15px;
-  margin: 10px;
-}
-
-.slideimg
-{
-  height: 400px;
-  justify-content: center;
-  /* background-image: url('https://cdn11.bigcommerce.com/s-x49po/images/stencil/1280x1280/products/89262/155364/1668761300278_AAG_000087_A__1___42835.1669109980.jpg?c=2'); */
-  
-}
-
-
-.upcoming_heading
-{
-  font-size: xx-large;
-  /* top: -25%; */
-  font-family: 'Kanit', sans-serif;
-  margin-top: 40px;
-}
-
 .name1 b
 {
   font-size: 45px;
 }
-.uploaddiv
+
+.subbtn
 {
-  margin-top: -20%;
-}
-.container {
-  /* max-width: 400px; */
-  /* width: 60%; */
-  /* display: flex;
-  flex-direction: row; */
-  background: #fcf6bd;
-  padding: 30px;
-  border-radius: 30px;
-  font-family: 'Kanit', sans-serif;
-  margin-bottom: 40px;
-}
-.select-image {
-  display: block;
   width: 100%;
-  padding: 8px 0;
-  border-radius: 15px;
-  /* background: #0071FF;
-  color: #fff; */
-  font-weight: 500;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-  transition: all .3s ease;
+  text-align: start;
 }
-.select-image:hover {
-  background: #ddc959;
+.select-image
+{
+  background-color: #395f72;
+  color: #fff;
+  margin-top: 20px;
+  font-size: 15px;
+}
+
+.select-image:hover
+{
+  background-color: #ABC4AA;
+  color: #395f72;
+}
+.submitbtn
+{
+  margin-top: 20px;
+  text-align: start;
+
+}
+.submitbtn1
+{
+  background-color: #395f72;
+  color: #fff;
+  font-size: 15px;
+  width: 30%;
+  
+  transition: 0.5s;
+}
+.submitbtn1:hover
+{
+  transform: scale(1.1);
+}
+
+.logoutbtn
+{
+  background-color: #395f72;
+  color: #fff;
+  font-size: 15px;
+}
+
+.logoutbtn:hover
+{
+  background-color: #ABC4AA;
+  color: #395f72;
+}
+.hrl
+{
+  margin-left:35%;
+}
+.hrline
+{
+  width: 50%;
 }
 </style>

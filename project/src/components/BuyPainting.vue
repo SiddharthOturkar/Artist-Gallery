@@ -334,7 +334,7 @@ export default
         this.$store.dispatch("clearCartItems")
       }
     },
-    created() {
+    mounted() {
       this.$store.dispatch('getProduct', this.id)
   
       // console.log(this.cart1);

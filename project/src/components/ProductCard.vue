@@ -10,18 +10,19 @@
             <h2>₹{{product.price}}<br><span>{{product.instname}}</span></h2>
             <div class="data">
               <h3>{{product.shape}}<br><span>Shape</span></h3>
-              <h3>{{ product.size}}<br><span>Artist Name</span></h3>
+              <h3>{{ product.name}}<br><span>Artist Name</span></h3>
               <h3>{{ product.size}}<br><span>Size</span></h3>
             </div>
             <div class="actionBtn">
-              <router-link to="/BuyPainting" ><button @click="addToCart()">Buy Now</button></router-link>
+              <router-link to="/BuyPainting" ><button  @click="addToCart()">Buy Now</button></router-link>
               <button @click="addToCart()">Add to Cart</button>
             </div>
           </div>
         </div>
-      </div> 
+      </div>
+      <div id="snackbar">Product Added Succcessfully</div>
     </div>
-
+    
 
 </template>
 
@@ -39,16 +40,21 @@ export default{
         },
     methods:
     {
-      async addToCart(){
+      addToCart(){
         // const jsonArray = JSON.stringify(this.$store.state.cart);
         // axios.post(`https://retoolapi.dev/6ysODg/cart`)
         this.$store.dispatch("addProductToCart",{
           product:this.product,
           quantity:1
-        })
+        })  
+        var x = document.getElementById("snackbar");
+        x.className = "show";
+        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+        
         // localStorage.setItem('array', jsonArray);
       }
     },
+    
     
 };
 
@@ -200,4 +206,46 @@ export default{
   background: #fff;
 }
 
+/* -----------------------Show Toast------------------------ */
+#snackbar {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #17232c;
+  color: #fff;
+  text-align: center;
+  border-radius: 15px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+  font-size: 17px;
+}
+
+#snackbar.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;} 
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;} 
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
 </style>

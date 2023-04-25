@@ -18,82 +18,74 @@
         <hr>
         <div class="d-flex justify-content-between">
             <span>Total:₹{{ total }}</span>
-            <a href="#" @click.prevent="clearCartItems()">Clear Cart</a>
+            <!-- <a href="#" @click.prevent="clearCartItems()">Proceed to buy</a> -->
+            <router-link to="/BuyPainting" class="proceed">Proceed to buy</router-link>
         </div>
     </div>
 </template>
 
 <script>
 import axios from 'axios';
+import { RouterLink } from 'vue-router';
 // import { response } from 'express';
 
 export default {
-    name:'miniCArt',
-    data()
-    {
-        return{
+    name: "miniCArt",
+    data() {
+        return {
             // cart1:JSON.parse(localStorage.getItem("array"))
-            postsdata : [],
-            displayCartItems:[],
-            total:0,
-        }
+            postsdata: [],
+            displayCartItems: [],
+            total: 0,
+        };
     },
-    computed:{
-        cart()
-        {    
+    computed: {
+        cart() {
             // const jsonArray = JSON.stringify(this.$store.state.cart);
             // localStorage.setItem('array', jsonArray);
             // return localStorage.getItem('array');
-            
             return this.$store.state.cart; //id& quantity
-          
         },
-        cartTotalPrice()
-        {
+        cartTotalPrice() {
             return this.$store.getters.cartTotalPrice;
         }
     },
-    methods:
-    {
-        removeProductFromCart(product)
-        {
+    methods: {
+        removeProductFromCart(product) {
             // this.$store.dispatch('removeProductFromCart',product)
-            axios.delete(`https://retoolapi.dev/BYWiwS/cart/${product}`)
+            axios.delete(`https://retoolapi.dev/BYWiwS/cart/${product}`);
             return;
             // state.cart = state.cart.filter(item=>{
             // return item.product.id !== product.id;
             // })
         },
-        clearCartItems()
-        {
-            this.$store.dispatch("clearCartItems")
+        clearCartItems() {
+            this.$store.dispatch("clearCartItems");
         }
     },
-    created()
-    {
+    created() {
         // console.log(this.cart1);
         axios.get(`https://retoolapi.dev/BYWiwS/cart`)
-            .then(response=>{
-
-                this.displayCartItems=response.data;
-                this.postsdata=response.data;
-                // console.log(this.postsdata);
-                // return response.data;
-                this.displayCartItems.forEach(item =>{
-                  this.total += Number(item.price);
-              })
-              console.log(this.total);
-              return this.total;
-
-            })
-
-   
-        
-    }
+            .then(response => {
+            this.displayCartItems = response.data;
+            this.postsdata = response.data;
+            // console.log(this.postsdata);
+            // return response.data;
+            this.displayCartItems.forEach(item => {
+                this.total += Number(item.price);
+            });
+            console.log(this.total);
+            return this.total;
+        });
+    },
+    components: { RouterLink }
 }
 
 </script>
 
-<style>
-
+<style scoped>
+.proceed
+{
+    color: #fff;
+}
 </style>

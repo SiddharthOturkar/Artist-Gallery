@@ -29,16 +29,16 @@
                 Featured Links
               </h6>
               <p>
-                <a href="#!" class="text-reset">Shop with us</a>
+                <a class="text-reset"><router-link to="/ProductsPage" class="hlink">Shop with us</router-link></a>
               </p>
               <p>
-                <a href="#!" class="text-reset">About us</a>
+                <a class="text-reset"><router-link to="/AboutUs" class="hlink">About us</router-link></a>
               </p>
               <p>
-                <a href="#!" class="text-reset">Showcase your Arts</a>
+                <a class="text-reset"><router-link to="/dashboard" class="hlink">Showcase your Arts</router-link></a>
               </p>
               <p>
-                <a href="#!" class="text-reset">History of Art</a>
+                <a class="text-reset"><router-link to="/ArtHistory" class="hlink">History of Art</router-link></a>
               </p>
             </div>
             <!-- Grid column -->
@@ -152,6 +152,10 @@
 .copyright
 {
   text-decoration: none;
+  color: #fff;
+}
+.hlink
+{
   color: #fff;
 }
 

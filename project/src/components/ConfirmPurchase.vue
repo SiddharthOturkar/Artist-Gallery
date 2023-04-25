@@ -27,16 +27,16 @@
                   </div> -->
                   <h1>Complete Purchase !</h1>
                   <div class="getInputs">
-                    <label>Buyer Name</label>
+                    <label>Buyer Name</label><br>
                     <input type="text" v-model="name" id="name" placeholder="Buyer Name">
                     <br>
-                    <label>Email</label>
+                    <label>Email</label><br>
                     <input type="email" v-model="email" id="email" placeholder="Enter your email">
                     <br>
-                    <label>Phone</label>
+                    <label>Phone</label><br>
                     <input type="number" v-model="phone" id="phone" placeholder="enter your contact">
                     <br>
-                    <label>Address</label>
+                    <label>Address</label><br>
                     <input type="text" v-model="address" id="address" placeholder="Your Address">
                     <br>
                   </div>
@@ -182,7 +182,6 @@ export default{
   margin: 50px;
   
 }
-
 .imginput h1
 {
   /* border:2px green dotted; */
@@ -197,6 +196,8 @@ export default{
 {
   margin-top: 40px;
   /* border: 2px brown dotted; */
+  /* justify-content: start;
+  align-items: start; */
 }
 .getInputs label
 {
@@ -206,6 +207,9 @@ export default{
   text-align: start;
   padding: 2px;
   margin-bottom: 1px;
+  width: 100%; 
+  text-align: left; 
+  
 }
 .getInputs input
 {

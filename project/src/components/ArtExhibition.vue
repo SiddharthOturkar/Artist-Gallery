@@ -16,7 +16,7 @@
         </div>
 
         <div class="button_heading">
-          <button>Explore Now!</button>
+          <router-link to="/ProductsPage"><button>Explore Now!</button></router-link>
         </div>
       </div>
     </div>
@@ -35,8 +35,8 @@
       <div class="one3">
         <p class="txt1">Everyone is <b>Artist</b> & <b>Yes</b> ! You can showcase your Art on our website & customers will reach out to you for buying your <b>Creative & Amazing Paintings !</b> </p>
         <div class="btn_align">
-          <button>Upload Your Arts</button> 
-          <button>Take a look on Amazing Paintings</button> 
+          <button @click="uploadArt">Upload Your Arts</button> 
+          <router-link to="/ProductsPage"><button>Take a look on Amazing Paintings</button></router-link> 
         </div>
       </div>
 </div>
@@ -82,39 +82,6 @@
   </div>
 </div>
 
-    <!-- Institue Images Cards Starts from Here  -->
- <!-- <div class="bigcard" v-if="current_val">
-    <div class="card" v-for="(post,index) in postsdata" :key="index">
-      <div >
-        <div class="imgBx">
-          <img :src="postsdata[index].url" alt="" id="myImage" srcset="">
-        </div>
-        <div class="content">
-          <div class="details">
-            <h2>₹{{ postsdata[index].price }}<br><span>{{ postsdata[index].instname }}</span></h2>
-            <div class="data">
-              <h3>{{ postsdata[index].shape }}<br><span>Shape</span></h3>
-              <h3>{{ postsdata[index].name }}<br><span>Artist Name</span></h3>
-              <h3>{{ postsdata[index].size }}<br><span>Size</span></h3>
-            </div>
-            <div class="actionBtn">
-              <button>Buy Now</button>
-              <button>Add to Cart</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->
-
-  
- <!------------------------------------ Prodcuts Showcase-------------------------------->
-
-  <!-- <div v-if="current_val">
-    <ProductsPage/>
-  </div>   -->
-
-  
  <!------------------------------------ Best Sellers Code-------------------------------->
  
  <div class="bestSellers">
@@ -122,17 +89,6 @@
       <SliderFile/>
 </div>
 
-<!------------------------------------ Feature Artist Code-------------------------------->
-
-<!-- <h1 class="upcoming_heading" >Featured Artist</h1>
-<div class="featureArtist">
-  <div class="feature_wrapper">
-    <div class="content">
-      <div class="carte_button"></div>
-      <div class="carte"></div>    
-    </div>
-  </div>
-</div> -->
  <!------------------------------------ Footer Starts from Here -------------------------------->
     <FooterFile/>
   </div>
@@ -143,7 +99,8 @@
 import HeaderFile from './HeaderFile.vue';
 import SliderFile from './SliderFile.vue';
 import FooterFile from '@/components/FooterFile';
-import axios from 'axios'
+import axios from 'axios';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 export default 
 {
   data() {
@@ -172,12 +129,14 @@ export default
             this.getPosts();
             this.current_val=true;
           },
+          
           addToCart(){
-        this.$store.dispatch("addProductToCart",{
-          product:this.product,
-          quantity:1
-        })
-      },
+            this.$store.dispatch("addProductToCart",{
+              product:this.product,
+              quantity:1
+            })
+          },
+          
           getPosts()
           {
             if(this.KKW == false)
@@ -195,17 +154,33 @@ export default
               this.formatPostData(response.data);
             });
           },
-        formatPostData(posts)
-        {
-          this.postsdata = [];
-          for(let key in posts)
+
+          formatPostData(posts)
           {
-            if(posts[key].instname==this.instname_value)
+            this.postsdata = [];
+            for(let key in posts)
             {
-              this.postsdata.push({...posts[key],id:key}); //destructuring via spread operator ...
+              if(posts[key].instname==this.instname_value)
+              {
+                this.postsdata.push({...posts[key],id:key}); //destructuring via spread operator ...
+              }
             }
+          },
+
+          uploadArt()
+          {
+            const auth = getAuth();
+            onAuthStateChanged(auth, (user) => {
+              if (user) {
+                // User is sign in
+                this.$router.replace('Dashboard');
+              } else {
+                // User is signed out
+                console.log('Hello111');
+                this.$router.replace('/LoginPage');
+              }
+            });
           }
-        }
         },  
     computed:{
       products(){
@@ -289,8 +264,6 @@ export default
 
 .lettering .button_heading button:hover
 {
-  /* background-color: #17232C;
-  color: #ABC4AA; */
   transform: scale(1.1);
 }
 .navbar_container
@@ -301,68 +274,6 @@ export default
   width: auto;
 
 }
-
-/* _____________________Smoky Effect________________________________ */
-/* .banner
-{
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  background: url("@/assets/bg5.jpg");
-  background-size: cover;
-  background-position: bottom;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.banner #text
-{
-  position: relative;
-  font-size: 10em;
-  color: #fff;
-  text-shadow:-12px 0px 5px  rgba(0,0,0,0.75);
-  font-family: 'Anton', sans-serif;
-  z-index: 50;
-}
-
-.banner .clouds
-{
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.banner .clouds img
-{
-  position: absolute;
-  bottom: 0;
-  left:0;
-  width: 100%;
-  animation: animate calc(3s * var(--i)) linear infinite;
-}
-
-@keyframes  animate
-{
-  0%
-  {
-    opacity: 0;
-    transform: scale(1);
-  }
-  25%, 75%  
-  {
-    opacity: 0.2;
-  }
-  100%
-  {
-    opacity: 0.4;
-    transform: scale(2);
-  }
-} */
 
 section
 {
@@ -376,219 +287,8 @@ section h2
   font-size: 2.5em;
   margin-bottom: 20px;
 }
-.info_div
-{
-  display: grid;
-  column-gap: 40px;
-  grid-template-columns: auto auto;
-  border-radius: 20px;
-  font-family: 'Kanit', sans-serif;
-  margin: 50px 50px 50px 50px;
-  height: 300px;
-}
-
-.info_div > div {
-  /* background-color: rgba(255, 255, 193, 0.8); */
-  text-align: center;
-  /* padding: 20px 0; */
-  font-size: 20px;
-}
-.info_div button
-{
-  padding: 0px 20px;
-  margin-top: 20px;
-  border-radius: 10px;
-  background-color: #d6cf8e;
-  border: 2px solid #d6cf8e;
-}
-.info_div button:hover
-{
-  /* background-color: #fcf6bd; */
-  background-color:#f4e590;
-  border: 2px solid #f4e590;
-}
-.txt:hover
-{
-  color: rgb(54, 16, 54);
-}
-/* .item1 {
-  grid-row-start: 1;
-  grid-row-end: 2;
-} */
-
-.item1 img
-{
-  margin-top: -20px;
-  border-radius: 20px;
-  height: 200px;
-  width: 250px;
-  transition: 0.5s;
-}
-.item1 img:hover
-{
-  transform:scale(1.2) ;
-}
-
-/* .txt1:hover
-{
-  transform: scale(1, 1.2);
-} */
 
 
-/* Card Styling starts from here */
-.bigcard
-{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  font-family: 'Kanit', sans-serif;
-  
-}
-/* .bigcard>* {
-        flex: 1 1 1;
-    } */
-  
-
-.card
-{
-  position: relative;
-  width: 350px;
-  height: 190px;
-  /* height: 450px; */
-  background-color: #fcf6bd;
-  border-radius: 20px;
-  box-shadow: 0 35px 80px rgba(0, 0, 0, 0.15);
-  transition: 0.5s;
-  /* margin-left: 50px; */
-  margin: 3%;
-}
-
-.card:hover
-{
-  height: 450px;
-}
-
-.imgBx
-{
-  position: absolute;
-  left: 50%;
-  top: -50px;
-  transform: translateX(-50%);
-  width: 150px;
-  height: 150px;
-  background: #000;
-  border-radius: 20px;
-  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.35);
-  overflow: hidden;
-  transition: 0.5s;
-}
-.card:hover .imgBx 
-{
-  width: 250px;
-  height: 250px;
-}
-/*.card:hover .imgbx
-{
-  width: 250px;
-  height: 250px;
-}*/
-.imgBx img
-{
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.card .content
-{
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  overflow: hidden;
-}
-
-.card .content .details
-{
-  padding: 40px;
-  text-align: center;
-  width: 100%;
-  transition: 0.5s;
-  transform: translateY(150px);
-}
-
-.card:hover .content .details
-{
-  transform: translateY(0);
-}
-.card .content .details h2
-{
-  font-size: 2.25em;
-  font-weight: 600;
-  color: #555;
-  line-height: 1.2em;
-}
-.card .content .details h2 span
-{
-  font-size: 0.75em;
-  font-weight: 500;
-  opacity: 0.5;
-}
-
-.card .content .details .data
-{
-  display: flex;
-  justify-content: space-between;
-  margin: 20px 0;
-}
-
-.card .content .details .data h3
-{
-  font-size: 1.5em;
-  color: #555;
-  line-height: 1.2em;
-  font-weight: 600;
-}
-
-.card .content .details .data h3 span
-{
-  font-size: 0.85em;
-  font-weight: 400;
-  opacity: 0.5;
-}
-.card .content .details .actionBtn
-{
-  display: flex;
-  justify-content: space-between;
-  /* gap: 20px; */
-}
-
-.card .content .details .actionBtn button
-{
-  padding: 10px 30px;
-  border-radius: 5px;
-  border: none;
-  outline: none;
-  font-size: 1.5em;
-  font-weight: 500;
-  background: #e6da96 ;
-  color: #000000;
-  cursor: pointer;
-}
-
-.card .content .details .actionBtn button:nth-child(2)
-{
-  border: 1px solid #999;
-  color: #999;
-  background: #fff;
-}
 
 
 /* Upcoming Cards Styling Starts from here */
@@ -777,6 +477,10 @@ font-family: 'Kanit', sans-serif;
 {
   margin-left: 50px;
 }
+
+
+/* --------------------------Media Query-------------------------------- */
+
 
 
 

@@ -135,16 +135,23 @@ export default
 }
 .loginfields1
 {
-  margin-left: -130px;
+  /* margin-left: -130px; */
   font-size: 20px;
   color: #395f72;
+  text-align: left;
+  /* border: 2px solid red; */
+  width: 100%;
 }
 
 .loginfields2
 {
-  margin-left: -150px;
+  /* margin-left: -150px; */
   font-size: 20px;
   color: #395f72;
+  text-align: left;
+  /* border: 2px solid red; */
+  width: 100%;
+
 
 }
 
@@ -156,6 +163,7 @@ export default
   border:2px solid #395f72;
   color: #395f72;
   font-size: 20px;
+    
   /* padding: 10px; */
 }
 ::placeholder
@@ -164,12 +172,15 @@ export default
   font-size: 15px;
   
 }
+
 .loginwelcome h1
 {
   color: #395f72;
   font-size: 30px;
   font-weight: bold;
-  margin-left: -310px;
+  /* margin-left: -310px; */
+  text-align: left;
+
 }
 
 .loginwelcome p
@@ -177,7 +188,8 @@ export default
   color: #395f72;
   font-size: 15px;
   font-weight: bold;
-  margin-left: -130px;
+  /* margin-left: -130px; */
+  text-align: left;
 }
 
 /* ------------- main form design -------------------- */
